@@ -1,5 +1,5 @@
 // import { Fragment } from 'react';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Grid } from '@mui/material';
 import { Box } from '@mui/system';
@@ -14,10 +14,20 @@ import TimeTable from './MyRoomItem/TimeTable';
 import Choice from './MyRoomItem/Choice';
 import { Link } from 'react-router-dom';
 import TodoTable from './MyRoomItem/TodoTable';
+
+import RoomModal from "../Modal/RoomModal";
+import styled from "styled-components";
 // import classes from '../rooms/myroom.css';
 // import mealsImage from '../../assets/meals.jpg';
 
 const MyRoom = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClickButton = () => {
+    setIsOpen(true);
+  };
+
   return (
     <Grid container>
       <Box
@@ -51,7 +61,7 @@ const MyRoom = () => {
             <Link to={`/group`}><PageIcon /></Link>
           </Box>
           <Box>
-            <Box
+            {/* <Box
               sx={{
                 width: "4rem",
                 height: "4rem",
@@ -65,8 +75,17 @@ const MyRoom = () => {
                   transform: "rotate(0)",
                   transition: "0.8s",
                 }
-              }}>
-            </Box>
+              }}> */}
+              <AppWrap>
+                <Button onClick={onClickButton}>+</Button>
+                {isOpen && (<RoomModal
+                  open={isOpen}
+                  onClose={() => {
+                    setIsOpen(false);
+                  }}
+                />)}
+              </AppWrap>
+            {/* </Box> */}
           </Box>
         </Box>
       </Box>
@@ -158,5 +177,25 @@ const MyRoom = () => {
     </Grid>
   );
 };
+
+const Button = styled.button`
+  font-size: 40px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #ffffff;
+  border-radius: 10px;
+  color: black;
+  font-style: italic;
+  font-weight: 200;
+  cursor: pointer;
+  &:hover {
+    background-color: #fac2be;
+  }
+`;
+
+const AppWrap = styled.div`
+  text-align: center;
+  margin: 50px auto;
+`;
 
 export default MyRoom;
