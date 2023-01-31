@@ -1,0 +1,53 @@
+.circle_top {
+  background-color: white;
+  border-radius: 50%;
+  width:80px;
+  height:80px;
+  top: 5%;
+  left: 1350px;
+  position: static;
+  display: flex;
+  text-align: center;
+  border: 5px solid #FD8484;
+  margin: 1.5em;
+  align-items: center;
+  justify-content: center;
+  
+}
+
+.circle_bot {
+  background-color:white;
+  border-radius: 50%;
+  width:80px;
+  height:80px;
+  float: right;
+
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid #488DCC;
+}
+
+.h6_top {
+  position:static;
+  font-size: 50px;
+
+}
+
+.h6_bot {
+  position:static;
+  font-size: 50px;
+  text-align: center;
+
+}
+
+.diagonal {
+  width:300px;
+  height: 5px;
+  background-color: LIGHTgrey;
+  transform: rotate(-20deg);
+  position: absolute;
+  top: 12.2%;
+  
+}
