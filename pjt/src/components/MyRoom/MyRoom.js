@@ -102,6 +102,7 @@ const MyRoom = () => {
             display: "flex",
             // alignItems: "center",
             justifyContent: "space-evenly",
+            // alignItems: "center",
             backgroundColor: "#ebe5d1",
           }}>
           <Profile />

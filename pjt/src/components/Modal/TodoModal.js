@@ -6,7 +6,7 @@ import Dropdown from "../DatePicker/Dropdown";
 import CustomDatePicker from "../DatePicker/DatePicker";
 import TodoToggle from "./TodoToggle";
 
-
+import './TodoModal.css';
 
 function Modal({ onClose }) {
   const handleClose = () => {
@@ -44,39 +44,48 @@ function Modal({ onClose }) {
 
   return (
     <Overlay>
-    <ModalWrap>
-      <Contents>
-        <h1>내 일정 추가하기</h1>
+      <ModalWrap>
+        <Contents>
+          <h1>내 일정 추가하기</h1>
 
-        <TodoToggle />
+          <TodoToggle />
 
-        <InputWithLabel label="| 할 일" name="todo" placeholder="React Chapter1 과제" type="todo"/>
+          <InputWithLabel label="| 할 일" name="todo" placeholder="React Chapter1 과제" type="todo"/>
+          
+          <InBox>
+            <Dropdown
+              isDropdownOpen={isDropdownOpen}
+              toggleDropdown={toggleDropdown}
+              selectedPeriod={selectedPeriod}
+              onClickPeriod={onClickPeriod}
+            />
+            <CustomDatePicker
+              selectedDate={startDate}
+              setSelectedDate={setStartDate}
+              selectedPeriod={selectedPeriod}
+            />
+            <p className="font">-</p>
+            <CustomDatePicker
+              selectedDate={endDate}
+              setSelectedDate={setEndDate}
+              selectedPeriod={selectedPeriod}
+            />
+          </InBox>
 
-        <Dropdown
-          isDropdownOpen={isDropdownOpen}
-          toggleDropdown={toggleDropdown}
-          selectedPeriod={selectedPeriod}
-          onClickPeriod={onClickPeriod}
-        />
-        <CustomDatePicker
-          selectedDate={startDate}
-          setSelectedDate={setStartDate}
-          selectedPeriod={selectedPeriod}
-        />
-        <span>-</span>
-        <CustomDatePicker
-          selectedDate={endDate}
-          setSelectedDate={setEndDate}
-          selectedPeriod={selectedPeriod}
-        />
-
-        <CButton onClick={handleClose}>뒤로</CButton>
-        <CButton onClick={handleClose}>참가하기</CButton>
-      </Contents>
-    </ModalWrap>
-  </Overlay>
+          <CButton onClick={handleClose}>취소</CButton>
+          <CButton onClick={handleClose}>참가</CButton>
+        </Contents>
+      </ModalWrap>
+    </Overlay>
   );
 }
+
+const InBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+`
 
 const Overlay = styled.div`
   position: fixed;
@@ -90,14 +99,13 @@ const Overlay = styled.div`
 
 const ModalWrap = styled.div`
   position: absolute;
-  width: 900px;
-  height: 700px;
+  width: 650px;
+  height: 550px;
   display: flex;
   flex-direction: column;
-  align-content: center;
   align-items: center;
   justify-content: center;
-  border-radius: 50px;
+  border-radius: 30px;
   background-color: #4A4A4A;
   top: 50%;
   left: 50%;
@@ -107,27 +115,27 @@ const ModalWrap = styled.div`
 
 const Contents = styled.div`
   position: absolute;
-  vertical-align: middle;
+  // vertical-align: middle;
+  text-align: center;
   h1 {
     color: white;
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 600;
-    margin-top: 60px;
-    margin-bottom: 55px;
+    // margin-top: 60px;
+    // margin-bottom: 20px;
   }
 `;
 
 const CButton = styled.button`
-  float : right;
-  width: 130px;
-  height: 70px;
-  margin: 30px;
-  margin-top : 70px;
-  font-size: 24px;
+  // float : right;
+  width: 110px;
+  height: 60px;
+  margin-top : 50px;
+  margin-left: 20px;
+  font-size: 20px;
   border: none;
   background-color: #ffffff;
-  border-radius: 10px;
-  font-family: 'GangwonEdu_OTFBoldA';
+  border-radius: 20px;
   box-Shadow: 5px 5px 8px;
   cursor: pointer;
   &:hover {
@@ -136,37 +144,36 @@ const CButton = styled.button`
 `;
 
 const Label = styled.div` 
-  float: left;
-  font-size: 2rem;
+  // float: left;
+  text-align: left;
+  font-size: 20px;
   color: white;
-  font-family: 'GangwonEdu_OTFBoldA';
   margin-bottom: 0.5rem;
 `;
 
 const Input = styled.input`
-    width: 450px;
-    height: 50px;
-    width: 100%;
-    outline: none;
-    border-radius: 20px;
-    line-height: 2.5rem;
-    font-size: 1.5rem;
-    font-family: 'GangwonEdu_OTFBoldA';
-    padding-left: 1rem;
-    padding-right: 0.5rem;
+  width: 450px;
+  height: 50px;
+  // width: 100%;
+  outline: none;
+  border-radius: 15px;
+  line-height: 2.5rem;
+  font-size: 20px;
+  padding-left: 1rem;
+  padding-right: 0.5rem;
 `;
 
 const Wrapper = styled.div`
-    & + & {
-        margin-top: 1rem;
-    }
+  & + & {
+    margin-top: 1rem;
+  }
 `;
 
 const InputWithLabel = ({label, ...rest}) => (
-    <Wrapper>
-        <Label>{label}</Label>
-        <Input {...rest}/>
-    </Wrapper>
+  <Wrapper>
+    <Label>{label}</Label>
+    <Input {...rest}/>
+  </Wrapper>
 );
 
 export default Modal;
