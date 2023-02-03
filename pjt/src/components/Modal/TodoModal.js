@@ -1,82 +1,61 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { formatDate } from "../../utils";
+import DatePicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
+// import { formatDate } from "../../utils";
 import { PERIOD } from "../DatePicker/constants";
 import Dropdown from "../DatePicker/Dropdown";
 import CustomDatePicker from "../DatePicker/DatePicker";
 import TodoToggle from "./TodoToggle";
 
+import TodoTemplate from "../DnD/TodoTemplate";
+import TodoHead from "../DnD/TodoHead";
+import TodoList from "../DnD/TodoList";
+import TodoCreate from "../DnD/TodoCreate";
+import { TodoProvider } from "../DnD/TodoContext";
 import './TodoModal.css';
 
-function Modal({ onClose }) {
-  const handleClose = () => {
-    onClose?.();
-  };
+  function Modal({ onClose }) {
+    const handleClose = () => {
+      onClose?.();
+    };
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedPeriod, setSelectedPeriod] = useState(PERIOD[3].name);
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const onClickPeriod = (e) => {
-    const { value } = e.target;
-    setSelectedPeriod(value);
-    setDateRange(value);
-    toggleDropdown();
-  };
-
-  const setDateRange = (period) => {
-    const start = new Date(formatDate(new Date()));
-
-    if (period === "1주일") {
-      start.setDate(start.getDate() - 7);
-    } else if (period.includes("개월")) {
-      start.setMonth(start.getMonth() - Number(period[0]));
-    }
-
-    setStartDate(period === "전체" ? new Date("2022-01-01") : start);
-    setEndDate(new Date(formatDate(new Date())));
-  };
 
   return (
-    <Overlay>
-      <ModalWrap>
-        <Contents>
-          <h1>내 일정 추가하기</h1>
 
-          <TodoToggle />
+      <TodoProvider>
+        <TodoCreate />
+      </TodoProvider>
+    
+    
+    // <Overlay>
+    //   <ModalWrap>
+    //     <Contents>
+    //       <h1>내 일정 추가하기</h1>
 
-          <InputWithLabel label="| 할 일" name="todo" placeholder="React Chapter1 과제" type="todo"/>
+    //       <TodoToggle />
+
+    //       <InputWithLabel label="| 할 일" name="todo" placeholder="React Chapter1 과제" type="todo"/>
           
-          <InBox>
-            <Dropdown
-              isDropdownOpen={isDropdownOpen}
-              toggleDropdown={toggleDropdown}
-              selectedPeriod={selectedPeriod}
-              onClickPeriod={onClickPeriod}
-            />
-            <CustomDatePicker
-              selectedDate={startDate}
-              setSelectedDate={setStartDate}
-              selectedPeriod={selectedPeriod}
-            />
-            <p className="font">-</p>
-            <CustomDatePicker
-              selectedDate={endDate}
-              setSelectedDate={setEndDate}
-              selectedPeriod={selectedPeriod}
-            />
-          </InBox>
+    //       <InBox>
+    //         <CustomDatePicker
+    //           selectedDate={startDate}
+    //           setSelectedDate={setStartDate}
+    //         />
+    //       </InBox>
 
-          <CButton onClick={handleClose}>취소</CButton>
-          <CButton onClick={handleClose}>참가</CButton>
-        </Contents>
-      </ModalWrap>
-    </Overlay>
+    //       <CButton onClick={handleClose}>취소</CButton>
+    //       <CButton onClick={handleClose}>참가</CButton>
+    //     </Contents>
+    //   </ModalWrap>
+    // </Overlay>
   );
 }
 
@@ -177,3 +156,29 @@ const InputWithLabel = ({label, ...rest}) => (
 );
 
 export default Modal;
+
+
+
+// const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+// const [selectedPeriod, setSelectedPeriod] = useState(PERIOD[3].name);
+// const [startDate, setStartDate] = useState(new Date());
+// const [endDate, setEndDate] = useState(new Date());
+  // const onClickPeriod = (e) => {
+  //   const { value } = e.target;
+  //   setSelectedPeriod(value);
+  //   setDateRange(value);
+  //   toggleDropdown();
+  // };
+
+  // const setDateRange = (period) => {
+  //   const start = new Date(formatDate(new Date()));
+
+  //   if (period === "1주일") {
+  //     start.setDate(start.getDate() - 7);
+  //   } else if (period.includes("개월")) {
+  //     start.setMonth(start.getMonth() - Number(period[0]));
+  //   }
+
+  //   setStartDate(period === "전체" ? new Date("2022-01-01") : start);
+  //   setEndDate(new Date(formatDate(new Date())));
+  // };

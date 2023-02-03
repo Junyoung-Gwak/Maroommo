@@ -1,18 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Content from '../../DnD/Content';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 
-// import { Box } from "@mui/system";
 
-class TodoBox extends React.Component {
-  render() {
+// import { createGlobalStyle } from "styled-components";
+import TodoTemplate from "../../DnD/TodoTemplate";
+import TodoHead from "../../DnD/TodoHead";
+import TodoList from "../../DnD/TodoList";
+import TodoCreate from "../../DnD/TodoCreate";
+import { TodoProvider } from "../../DnD/TodoContext";
+import styled from "styled-components";
+import TodoModal from "../../Modal/TodoModal"
+
+
+// const GlobalStyle = createGlobalStyle`
+//   body {
+//     background: #e9ecef
+//   }
+// `;
+
+const TodoBox = () => {
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onClickButton = () => {
+    setIsOpen(true);
+  };
+
     return (
-      
-      <DndProvider backend={HTML5Backend}>
-      <Content />
-      </DndProvider>
+      <div>
+
+      {/* <TodoProvider>
+          <TodoTemplate>
+            <TodoHead />
+            <TodoList />
+          </TodoTemplate>
+        </TodoProvider> */}
+        <Button onClick={onClickButton}>할 일 생성</Button>
+          {isOpen && (<TodoCreate
+            open={isOpen}
+            onClose={() => {
+            setIsOpen(false);
+          }}
+        />)}
+        <DndProvider backend={HTML5Backend}>
+        <Content />
+        </DndProvider>
+      </div>
+    )
+
+}
+
+export default TodoBox;
+
+const Button = styled.button`
+  font-size: 40px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #ffffff;
+  border-radius: 10px;
+  color: black;
+  font-style: italic;
+  font-weight: 200;
+  cursor: pointer;
+  &:hover {
+    background-color: #fac2be;
+  }
+`;
 
       // <Box 
       //   sx={{
@@ -49,8 +105,3 @@ class TodoBox extends React.Component {
       //     <h3>완료한 일</h3>
       //   </Box>
       // </Box>
-    )
-  }
-}
-
-export default TodoBox;

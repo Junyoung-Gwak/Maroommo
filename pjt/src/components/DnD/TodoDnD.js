@@ -3,7 +3,7 @@ import Draggable from './Draggable';
 import DragGroup from './DragGroup';
 import Droppable from './Droppable';
 
-function Eg3() {
+function TodoDnD() {
   const [box1, setBox1] = React.useState([
     { text: 'React1' },
     { text: 'CS' },
@@ -83,4 +83,4 @@ function Eg3() {
   );
 }
 
-export default Eg3;
+export default TodoDnD;
